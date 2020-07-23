@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
+# git diff --stat deadpython.py         - to show new lines
+
 import os
 from termcolor import colored
 
-ver = '0.05'
+ver = '0.11'
 
 if __name__ == "__main__":
 
@@ -21,9 +23,29 @@ if __name__ == "__main__":
             continue
         elif (c == 'q'):
             exit()
+        elif (c == 'm'):
+            print(colored('mem', 'green'))
+            os.system('free -m')
+            continue
+        elif (c == 'f'):
+            os.system('sync')
+            print(colored('before flushing caches:', 'green'))
+            os.system('free -m')
+            os.system('sudo sh -c \'echo 3 >/proc/sys/vm/drop_caches\'')
+            print(colored('after flushing caches:', 'green'))
+            os.system('free -m')
+            continue
+        elif (c == 'i'):
+            print(colored('info about os', 'green'))
+            os.system('uname -a')
+            os.system('lsb_release -a')
+            continue
         elif (c == 'h'):
             print('p - ping')
             print('c - clear')
+            print('i - info os')
+            print('m - show mem')
+            print('f - flush caches')
             print('q - quit')
             print('h - help')
             continue
